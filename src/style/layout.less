@@ -1,0 +1,198 @@
+#app{
+    position: relative;
+    // 侧边栏折叠：
+    .hideSidebar{
+        .l-guide-siderbar-container{
+            width: @hideSidebarWidth;
+            /deep/ .logo-container > .logo-title{
+                height: 0;
+                width: 0;
+                overflow: hidden;
+                visibility: hidden;
+                margin-left: 0;
+            }
+            /deep/ .el-menu--collapse {
+                .el-menu-item span{
+                    opacity: 0;
+                    visibility:hidden;
+                }
+                .el-submenu__title{
+                    & > span{
+                        height: 0;
+                        width: 0;
+                        overflow: hidden;
+                        visibility: hidden;
+                        display: inline-block;
+                    }
+                    // 隐藏菜单项右侧的小箭头
+                    .el-submenu__icon-arrow.el-icon-arrow-right{
+                        display: none;
+                    }
+                }
+            }
+        }
+        .r-main-container{
+            left: @hideSidebarWidth + 1px;
+            width: calc(100% - @hideSidebarWidth - 1px);
+        }
+    }
+    // 侧边栏展开：
+    .openSidebar{
+        .l-guide-siderbar-container{
+            width: @menuWidth;
+        }
+        .r-main-container{
+            left: @menuWidth + 1px;
+            width: calc(100% - @menuWidth - 1px);
+        }
+    }
+
+    // dark
+    &.dark{
+        .l-guide-siderbar-container{
+            background-color: @darkMainBgColor;
+            color: @darkMainTextColor;
+            border-right:1px solid @darkLineColor;
+        }
+        .r-main-container{
+            background-color: @darkMainBgColor;
+            /deep/ .topbar-container{
+                // background-color: @darkMainBgColor;
+                border-bottom:1px solid @darkLineColor;
+                i{
+                    color: @darkTopBarIconColor;
+                }
+                .el-breadcrumb__inner{
+                    color: @darkMainTextColor;
+                }
+            }
+            /deep/ .t-tag-container{
+                border-color:@darkLineColor;
+                .tags-item{
+                    border-color: @darkLineColor;
+                    color: @darkMainTextColor;
+                }
+            }
+            .r-content{
+                color: @darkMainTextColor;
+                box-shadow: 0 0 4px 1px @darkLineColor;
+            }
+        }
+    }
+
+    // white
+    &.white{
+        .l-guide-siderbar-container{
+            background-color: @whiteMainBgColor;
+            color: @whiteMainTextColor;
+            border-right:1px solid @whiteLineColor;
+            /deep/.el-menu-item.is-active{
+                color: #d08932;
+            }
+        }
+        .r-main-container{
+            background-color: @whiteMainBgColor;
+            /deep/ .topbar-container{
+                border-bottom:1px solid @whiteLineColor;
+                i{
+                    color: @whiteTopBarIconColor;
+                }
+                .el-breadcrumb__inner{
+                    color: @whiteMainTextColor;
+                }
+            }
+            /deep/ .t-tag-container{
+                border-color:@whiteLineColor;
+                .tags-item{
+                    border-color: @whiteLineColor;
+                    color: @whiteMainTextColor;
+                }
+                .tags-item.isActive{
+                    background-color: #add850;
+                }
+            }
+            .r-content{
+                color: @whiteMainTextColor;
+                box-shadow: 0 0 4px 1px @whiteLineColor;
+            }
+        }
+    }
+
+    .l-guide-siderbar-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        // width: @menuWidth;
+        height: 100%;
+        // background-color: @menuBg;
+        // color: @menuTextColor;
+        transition: @duration;
+
+        /deep/ .el-menu--collapse{
+            width: inherit;
+        }
+    }
+    .r-main-container{
+        position: absolute;
+        top: 0;
+        // left: @menuWidth;
+        // width: calc(100% - @menuWidth);
+        min-height: 100vh;
+        // background-color: @mainBg;
+        transition: @duration;
+
+        .topbar-container{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+            padding: 0 16px;
+            // box-shadow: 0 0 2px #727272;
+            // background-color: @mainBg;
+            /deep/ i{
+                font-size: 24px;
+            }
+        }
+        .t-tag-container{
+            display: flex;
+            padding: 6px 16px;
+            border-bottom: 1px solid;
+            /deep/ .tags-item{
+                display: inline-block;
+                padding: 4px 8px;
+                margin-right: 8px;
+                border: 1px solid;
+                font-size: 12px;
+                border-radius: @borderRadius;
+                transition: @duration;
+                i{
+                    border-radius: 50%;
+                    transition: @duration;
+                }
+                i:hover{
+                    color: #fff;
+                    background-color: #9b9999;
+                }
+                &.isActive{  // 点击添加圆点和背景色
+                    background-color: #42b883;
+                    color: #fff;
+                    &::before{
+                        content: "";
+                        background: #fff;
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        position: relative;
+                        margin-right: 2px;
+                    }
+                }
+            }
+        }
+        .r-content{
+            min-height: 300px;
+            margin: 20px 16px;
+            border-radius: @borderRadius;
+        }
+    }
+}
